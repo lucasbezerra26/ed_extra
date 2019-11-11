@@ -116,7 +116,7 @@ void adicionarPeso(grafo *g){
 
 void gravar(grafo *g, char lin, char col, char valor[]){
 	int l, c;
-	int l = atoi(lin) + 8;
+	l = lin - '0' + 8;
 	switch (col){
 	case 'A':
 		c = 1;
@@ -200,12 +200,12 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 int main(){
     grafo *g = NULL;
     g = cria_grafo(28,28,1);
-    inserirTodasArestas(g);
+    // inserirTodasArestas(g);
     // insereAresta(g,1,1,0,2);
     // imprimirGrafo(g);
 
 
-		printf("Para parar o programa digite 00\n");
+		printf("Para parar o programa digite 00 sair\n");
 		char col = 'a', lin = 'a', valor[50];
 		while(col != '0' && lin != '0'){
 			printf("Digite o valor\n");
@@ -215,12 +215,12 @@ int main(){
 			}
 		};
 		
-	inserePeso(g, 1, 9, 1);
+	// inserePeso(g, 1, 9, 1);
 	// inserePeso(g, 1, 13, 0);
 	// inserePeso(g, 2, 12, 0);
 	imprimirPlanilha(g); 
 	// imprimirGrafo(g);
-	printf("%f",pegarPeso(g,1,1));
+	// printf("%f",pegarPeso(g,1,1));
 	// imprimirGrafo(g); 
     return 0;
 }
