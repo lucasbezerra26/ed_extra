@@ -69,7 +69,10 @@ int inserePeso(grafo* gr, int orig, int dest, int peso){
 	if(dest-1 < 0 || dest-1 >= gr->nro_vertices)
 		return 0;
 
-	gr->pesos[orig-1][gr->grau[orig-1]-1] = peso; //se for ponderado faz a mesma coisa ao peso
+	// printf("%f", gr->pesos[orig - 1][gr->grau[dest-8]]);
+	gr->pesos[orig - 1][dest-9] = peso;
+	// printf("%d %d \n", gr->grau[dest - 1], gr->grau[orig - 1]);
+	gr->pesos[dest-1][orig - 1] = peso;
 
 	return 1;
 }
@@ -104,7 +107,7 @@ void inserirTodasArestas(grafo *g){
 }
 
 void adcionarPeso(grafo *g){
-    inserePeso(g,1,2,0,2);
+    inserePeso(g,1,9,0);
 }
 
 void gravar(grafo *g, char lin, char col, char valor[]){
@@ -183,8 +186,7 @@ int main(){
     g = cria_grafo(28,28,1);
     inserirTodasArestas(g);
     // insereAresta(g,1,1,0,2);
-    // imprimirGrafo(g); 
-    imprimirPlanilha(g); 
+    imprimirGrafo(g);
 
 
 		printf("Para parar o programa digite 00\n");
@@ -196,7 +198,12 @@ int main(){
 				gravar(g, lin, col, valor);
 			}
 		};
-
-    imprimirGrafo(g); 
+		
+	// inserePeso(g, 1, 12, 0);
+	// inserePeso(g, 1, 13, 0);
+	// inserePeso(g, 2, 12, 0);
+	imprimirPlanilha(g); 
+	imprimirGrafo(g);
+	// imprimirGrafo(g); 
     return 0;
 }
