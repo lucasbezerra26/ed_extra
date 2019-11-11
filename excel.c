@@ -70,11 +70,15 @@ int inserePeso(grafo* gr, int orig, int dest, int peso){
 		return 0;
 
 	// printf("%f", gr->pesos[orig - 1][gr->grau[dest-8]]);
-	gr->pesos[orig - 1][dest-9] = peso;
+	gr->pesos[orig - 1][dest-1] = peso;
 	// printf("%d %d \n", gr->grau[dest - 1], gr->grau[orig - 1]);
 	gr->pesos[dest-1][orig - 1] = peso;
 
 	return 1;
+}
+
+float pegarPeso(grafo *g, int coluna, int linha){
+	return g->pesos[coluna - 1][linha-1];
 }
 
 void imprimirPlanilha(grafo *gr){
@@ -186,7 +190,7 @@ int main(){
     g = cria_grafo(28,28,1);
     inserirTodasArestas(g);
     // insereAresta(g,1,1,0,2);
-    imprimirGrafo(g);
+    // imprimirGrafo(g);
 
 
 		printf("Para parar o programa digite 00\n");
@@ -199,11 +203,12 @@ int main(){
 			}
 		};
 		
-	// inserePeso(g, 1, 12, 0);
+	inserePeso(g, 1, 9, 1);
 	// inserePeso(g, 1, 13, 0);
 	// inserePeso(g, 2, 12, 0);
 	imprimirPlanilha(g); 
-	imprimirGrafo(g);
+	// imprimirGrafo(g);
+	printf("%f",pegarPeso(g,1,1));
 	// imprimirGrafo(g); 
     return 0;
 }
