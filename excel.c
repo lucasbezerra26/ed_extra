@@ -53,7 +53,7 @@ int insereAresta(grafo* gr, int orig, int dest, int eh_digrafo, float peso){
 
 	// printf("Entrando antes do print: %d\n", orig);
 	if(eh_digrafo == 0){
-		// printf("Entrando: %d\n", orig);
+		printf("Entrando: %d\n", orig);
 		insereAresta(gr,dest,orig,1,peso); //se não for digrafo ele vai ligando o dest a orig, o 1 indicando que é digrafo é para ele repetir somente uma vez
 	}
 	return 1;
@@ -76,14 +76,23 @@ int inserePeso(grafo* gr, int orig, int dest, int eh_digrafo, float peso){
 	return 1;
 }
 
-void imprimirGrafo(grafo *gr){
+void imprimirPlanilha(grafo *gr){
     printf("|      A | B | C | D | E | F | G | H |\n");
 	for( int i=8; i< 28; i++){
-        printf("|%dº ", i - 7);
-        for( int x=0; x<8; x++)
-            printf("| %.2f ", gr->pesos[x][i]);
+        printf("|%dº ", i-7);
+        for( int x=0; x<8; x++){
+            printf("| %.2f ", gr->pesos[i][x]);
+		}
+
         printf("|\n");
     }
+}
+
+void imprimirGrafo(grafo *gr){
+	for( int x=0; x<gr->nro_vertices; x++){
+		for( int i=0; i< gr->grau[x]; i++)
+			printf("%d tem ligacao com %d e peso %f\n", x + 1, gr->aresta[x][i] + 1, gr->pesos[x][i]);
+	}
 }
 
 
@@ -96,13 +105,16 @@ void inserirTodasArestas(grafo *g){
 
 }
 
+void adcionarPeso(grafo *g){
+    inserePeso(g,1,2,0,2);
+}
 
 int main(){
     grafo *g = NULL;
     g = cria_grafo(28,28,1);
     inserirTodasArestas(g);
-    // inserePeso(g,1,2,0,2);
     // insereAresta(g,1,1,0,2);
-    imprimirGrafo(g); 
+    // imprimirGrafo(g); 
+    imprimirPlanilha(g); 
     return 0;
 }
