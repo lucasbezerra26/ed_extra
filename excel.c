@@ -60,7 +60,7 @@ int insereAresta(grafo* gr, int orig, int dest, int eh_digrafo, float peso){
 	return 1;
 }
 
-int inserePeso(grafo* gr, int orig, int dest, int eh_digrafo, float peso){
+int inserePeso(grafo* gr, int orig, int dest, int peso){
 	
 	if (gr == NULL)
 		return 0;
@@ -71,9 +71,6 @@ int inserePeso(grafo* gr, int orig, int dest, int eh_digrafo, float peso){
 
 	gr->pesos[orig-1][gr->grau[orig-1]-1] = peso; //se for ponderado faz a mesma coisa ao peso
 
-	if(eh_digrafo == 0){
-		inserePeso(gr,dest,orig,1,peso); //se não for digrafo ele vai ligando o dest a orig, o 1 indicando que é digrafo é para ele repetir somente uma vez
-	}
 	return 1;
 }
 
@@ -98,9 +95,40 @@ void inserirTodasArestas(grafo *g){
 }
 
 void gravar(grafo *g, char lin, char col, char valor[]){
+	int l, c;
+	int l = atoi(lin) + 8;
+	switch (col){
+	case 'A':
+		c = 1;
+		break;
+	case 'B':
+		c = 2;
+		break;
+	case 'C':
+		c = 3;
+		break;
+	case 'D':
+		c = 4;
+		break;
+	case 'E':
+		c = 5;
+		break;
+	case 'F':
+		c = 6;
+		break;
+	case 'G':
+		c = 7;
+		break;
+	case 'H':
+		c = 8;
+		break;
+	}
+
+
 	if(valor[0] != '=' && valor[0] != '@'){
+		valor++;
 		int v = atoi(valor);
-		// insere aresta (lin, col, v);
+		inserePeso(g,c,l,v);
 	}else if(valor[0] == '='){
 		char lin_aux = valor[1];
 		char col_aux = valor[2];
