@@ -77,7 +77,7 @@ int inserePeso(grafo* gr, int orig, int dest, int peso){
 	return 1;
 }
 
-float pegarPeso(grafo *g, int coluna, int linha){
+int pegarPeso(grafo *g, int coluna, int linha){
 	return g->pesos[coluna - 1][linha-1];
 }
 
@@ -110,7 +110,7 @@ void inserirTodasArestas(grafo *g){
 
 }
 
-void adcionarPeso(grafo *g){
+void adicionarPeso(grafo *g){
     inserePeso(g,1,9,0);
 }
 
