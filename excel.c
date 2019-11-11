@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 int t;
 
 struct Grafo{
@@ -136,11 +137,11 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		x++;
 		char col2_aux = valor[x];
 
-		if(palavra == 'soma'){
+		if(strcmp(palavra, "soma")  == 0){
 			// soma valor(lin1_aux, col1_aux) + valor(lin2_aux, col2_aux);
-		}else if(palavra == 'max'){
+		}else if(strcmp(palavra, "max")  == 0){
 			// max valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
-		}else if(palavra == 'min'){
+		}else if(strcmp(palavra, "min")  == 0){
 			// min valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
 		}else{
 			// media valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
