@@ -96,6 +96,46 @@ void inserirTodasArestas(grafo *g){
 
 }
 
+void gravar(grafo *g, char lin, char col, char valor[]){
+	if(valor[0] != '=' && valor[0] != '@'){
+		int v = atoi(valor);
+		// insere aresta (lin, col, v);
+	}else if(valor[0] == '='){
+		char lin_aux = valor[1];
+		char col_aux = valor[2];
+		// pega valor de (lin_aux, col_aux);
+		// insere aresta (lin, col, valor_aux);
+	}else{
+		int x = 1, j = 0;
+		char palavra[50];
+		while(valor[x] != '('){
+			palavra[j] = valor[x];
+			x++;
+			j++;
+		}
+		palavra[j] = '\0';
+		x++;
+		char lin1_aux = valor[x];
+		x++;
+		char col1_aux = valor[x];
+		x += 3;
+		char lin2_aux = valor[x];
+		x++;
+		char col2_aux = valor[x];
+
+		if(palavra == 'soma'){
+			// soma valor(lin1_aux, col1_aux) + valor(lin2_aux, col2_aux);
+		}else if(palavra == 'max'){
+			// max valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
+		}else if(palavra == 'min'){
+			// min valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
+		}else{
+			// media valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
+		}
+
+	}
+}
+
 
 int main(){
     grafo *g = NULL;
@@ -103,6 +143,17 @@ int main(){
     inserirTodasArestas(g);
     // inserePeso(g,1,2,0,2);
     // insereAresta(g,1,1,0,2);
+
+		printf("Para parar o programa digite 00\n");
+		char col = 'a', lin = 'a', valor[50];
+		while(col != '0' && lin != '0'){
+			printf("Digite o valor\n");
+			scanf(" %c%c %s", &col, &lin, valor);
+			if(lin != '0' && col != '0'){
+				gravar(g, lin, col, valor);
+			}
+		};
+
     imprimirGrafo(g); 
     return 0;
 }
