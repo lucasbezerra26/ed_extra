@@ -153,7 +153,8 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		char lin_aux = valor[1];
 		char col_aux = valor[2];
 		// pega valor de (lin_aux, col_aux);
-		// insere aresta (lin, col, valor_aux);
+		int v = pegarPeso(g, col_aux, lin_aux);
+		inserePeso(g, c, l, v);
 	}else{
 		int x = 1, j = 0;
 		char palavra[50];
@@ -173,13 +174,24 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		char col2_aux = valor[x];
 
 		if(strcmp(palavra, "soma")  == 0){
-			// soma valor(lin1_aux, col1_aux) + valor(lin2_aux, col2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			inserePeso(g, c, l, v1+v2);
 		}else if(strcmp(palavra, "max")  == 0){
-			// max valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			int max = v1 > v2 ? v1 : v2;
+			inserePeso(g, c, l, max);
 		}else if(strcmp(palavra, "min")  == 0){
-			// min valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			int min = v1 < v2 ? v1 : v2;
+			inserePeso(g, c, l, min);
 		}else{
-			// media valor(lin1_aux, col1_aux) && valor(lin2_aux, col2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			int media = (v1 + v2) / 2;
+			inserePeso(g, c, l, media);
 		}
 
 	}
