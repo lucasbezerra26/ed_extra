@@ -151,10 +151,10 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		int v = atoi(valor);
 		inserePeso(g,c,l,v);
 	}else if(valor[0] == '='){
-		char lin_aux = valor[1];
-		char col_aux = valor[2];
+		char col_aux = valorNoGrafo(valor[1]);
+		char lin_aux = valor[2];
 		// pega valor de (lin_aux, col_aux);
-		int v = pegarPeso(g, col_aux, lin_aux);
+		int v = pegarPeso(g, col_aux, lin_aux - '0' + 8);
 		inserePeso(g, c, l, v);
 	}else{
 		int x = 1, j = 0;
