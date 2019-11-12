@@ -65,7 +65,6 @@ int inserePeso(grafo* gr, int orig, int dest, int peso){
 	if(dest-1 < 0 || dest-1 >= gr->nro_vertices)
 		return 0;
 //
-	printf("%d", peso);
 	gr->pesos[orig - 1][dest-1] = peso;
 	// printf("%d %d \n", gr->grau[dest - 1], gr->grau[orig - 1]);
 	gr->pesos[dest-1][orig - 1] = peso;
@@ -176,15 +175,8 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		char lin2_aux = valor[x];
 
 		if(strcmp(palavra, "soma")  == 0){
-<<<<<<< HEAD
-			printf("%d %d\n", valorNoGrafo(col1_aux), lin1_aux - '0');
-
-			int v1 = pegarPeso(g, valorNoGrafo(col1_aux), lin1_aux -'0');
-			int v2 = pegarPeso(g, col2_aux, lin2_aux);
-=======
 			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
 			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
->>>>>>> b60aa159d995a9e1dafd13ef7683bf3758b19e1f
 			inserePeso(g, c, l, v1+v2);
 		}else if(strcmp(palavra, "max")  == 0){
 			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
