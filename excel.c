@@ -79,9 +79,10 @@ int pegarPeso(grafo *g, int coluna, int linha){
 }
 
 void imprimirPlanilha(grafo *gr){
-    printf("|      A | B | C | D | E | F | G | H |\n");
+    printf("      ________________________________\n");
+    printf("_____| A | B | C | D | E | F | G | H |\n");
 	for( int i=8; i< 28; i++){
-        printf("|%dº ", i-7);
+        printf("|%2dº ", i-7);
         for( int x=0; x<8; x++){
             printf("| %d ", gr->pesos[i][x]);
 		}
@@ -176,10 +177,9 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		char col2_aux = valor[x];
 
 		if(strcmp(palavra, "soma")  == 0){
-			printf("%d %d\n", col1_aux, lin1_aux);
+			printf("%d %d\n", valorNoGrafo(col1_aux), lin1_aux - '0');
 
-			int v1 = pegarPeso(g, valorNoGrafo(col1_aux), atoi(lin1_aux));
-			return;
+			int v1 = pegarPeso(g, valorNoGrafo(col1_aux), lin1_aux -'0');
 			int v2 = pegarPeso(g, col2_aux, lin2_aux);
 			inserePeso(g, c, l, v1+v2);
 		}else if(strcmp(palavra, "max")  == 0){
