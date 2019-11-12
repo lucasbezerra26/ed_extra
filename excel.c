@@ -28,12 +28,10 @@ grafo *cria_grafo(int nro_vertices, int grau_max, int eh_ponderado){
 		if (gr->eh_ponderado){
 			gr->pesos = (int**) malloc(nro_vertices * sizeof(int*));
 			for (int j = 0; j < nro_vertices; j++){
-				// printf("peso\n");
 				gr->pesos[j] = (int*) malloc(grau_max  *sizeof(int)); //fazendo a mesma coisa com os pesos
 			}
 		}
 	}
-	// printf("terminei\n");
 	return gr; 
 }
 
@@ -52,9 +50,7 @@ int insereAresta(grafo* gr, int orig, int dest, int eh_digrafo, int peso){
 		gr->pesos[orig-1][gr->grau[orig-1]] = peso; //se for ponderado faz a mesma coisa ao peso
 	gr->grau[orig-1]++; // e incrementa o numero de ligações para aquele vertice 	
 
-	// printf("Entrando antes do print: %d\n", orig);
 	if(eh_digrafo == 0){
-		printf("Entrando: %d\n", orig);
 		insereAresta(gr,dest,orig,1,peso); //se não for digrafo ele vai ligando o dest a orig, o 1 indicando que é digrafo é para ele repetir somente uma vez
 	}
 	return 1;
@@ -201,7 +197,7 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 int main(){
     grafo *g = NULL;
     g = cria_grafo(28,28,1);
-    // inserirTodasArestas(g);
+    inserirTodasArestas(g);
     // insereAresta(g,1,1,0,2);
     // imprimirGrafo(g);
 
@@ -220,7 +216,7 @@ int main(){
 	// inserePeso(g, 1, 13, 0);
 	// inserePeso(g, 2, 12, 0);
 	imprimirPlanilha(g); 
-	// imprimirGrafo(g);
+	imprimirGrafo(g);
 	// printf("%f",pegarPeso(g,1,1));
 	// imprimirGrafo(g); 
     return 0;
