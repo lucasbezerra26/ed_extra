@@ -142,6 +142,29 @@ int valorNoGrafo(char col){
 	return c;
 }
 
+int *listacaminho(grafo *g, int coluna1, int linha1, int coluna2, int linha2){
+	int *lista = NULL, tam=1;
+	lista =(int*) malloc(sizeof(int));
+	int max = linha1 > linha2 ? linha1 : linha2;
+	for( int i=1;i<coluna1;i++)
+		for( int x=1;x<max;x++){
+			lista[tam] = pegarPeso(g, coluna1, linha1 );
+			if(lista[tam]){
+				tam++;
+				lista =(int*) realloc(lista ,sizeof(int)*tam);
+			}
+		}
+	for( int i=1;i<coluna2;i++)
+		for( int x=1;x<max;x++){
+			lista[tam] = pegarPeso(g, coluna2, linha2 );
+			if(lista[tam]){
+				tam++;
+				lista =(int*) realloc(lista ,sizeof(int)*tam);
+			}
+		}
+	return lista;
+}
+
 void gravar(grafo *g, char lin, char col, char valor[]){
 	int l, c;
 	l = lin - '0' + 8;
@@ -174,24 +197,47 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		x++;
 		char lin2_aux = valor[x];
 
+		int *lista = NULL, tam = col1_aux * (lin1_aux - '0' + 8) + col2_aux * (lin2_aux - '0' + 8);
+		lista = listacaminho(g,col1_aux,lin1_aux - '0' + 8,col2_aux,lin2_aux - '0' + 8);
+
+		// for( int i=0; i<tam;i++){
+		// 	printf("");
+		// }
+
 		if(strcmp(palavra, "soma")  == 0){
-			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
-			inserePeso(g, c, l, v1+v2);
+			// int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			// int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
+			int soma=0;
+			for( int i=0;i<tam;i++)
+				soma += lista[i];
+			inserePeso(g, c, l, soma);
 		}else if(strcmp(palavra, "max")  == 0){
-			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
-			int max = v1 > v2 ? v1 : v2;
-			inserePeso(g, c, l, max);
+			// int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			// int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
+			int maior = lista[0];
+			for( int i=0;i<tam;i++){
+				if (maior < lista[i])
+					maior = lista[i];
+			}
+			// int max = v1 > v2 ? v1 : v2;
+			inserePeso(g, c, l, maior);
 		}else if(strcmp(palavra, "min")  == 0){
-			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
-			int min = v1 < v2 ? v1 : v2;
+			int min = lista[0];
+			for( int i=0;i<tam;i++){
+				if (min > lista[i])
+					min = lista[i];
+			}
+			// int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			// int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
+			// int min = v1 < v2 ? v1 : v2;
 			inserePeso(g, c, l, min);
 		}else{
-			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
-			int media = (v1 + v2) / 2;
+			// int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			// int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
+			int soma=0;
+			for( int i=0;i<tam;i++)
+				soma += lista[i];
+			int media = (soma) / tam;
 			inserePeso(g, c, l, media);
 		}
 
