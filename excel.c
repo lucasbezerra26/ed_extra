@@ -150,7 +150,6 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 
 	if(valor[0] != '=' && valor[0] != '@'){
 		int v = atoi(valor);
-		printf("--%s\n", valor);
 		inserePeso(g,c,l,v);
 	}else if(valor[0] == '='){
 		char lin_aux = valor[1];
@@ -168,33 +167,38 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		}
 		palavra[j] = '\0';
 		x++;
+		char col1_aux = valorNoGrafo(valor[x]);
+		x++;
 		char lin1_aux = valor[x];
-		x++;
-		char col1_aux = valor[x];
 		x += 3;
-		char lin2_aux = valor[x];
+		char col2_aux = valorNoGrafo(valor[x]);
 		x++;
-		char col2_aux = valor[x];
+		char lin2_aux = valor[x];
 
 		if(strcmp(palavra, "soma")  == 0){
+<<<<<<< HEAD
 			printf("%d %d\n", valorNoGrafo(col1_aux), lin1_aux - '0');
 
 			int v1 = pegarPeso(g, valorNoGrafo(col1_aux), lin1_aux -'0');
 			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+=======
+			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
+>>>>>>> b60aa159d995a9e1dafd13ef7683bf3758b19e1f
 			inserePeso(g, c, l, v1+v2);
 		}else if(strcmp(palavra, "max")  == 0){
-			int v1 = pegarPeso(g, col1_aux, lin1_aux);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
 			int max = v1 > v2 ? v1 : v2;
 			inserePeso(g, c, l, max);
 		}else if(strcmp(palavra, "min")  == 0){
-			int v1 = pegarPeso(g, col1_aux, lin1_aux);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
 			int min = v1 < v2 ? v1 : v2;
 			inserePeso(g, c, l, min);
 		}else{
-			int v1 = pegarPeso(g, col1_aux, lin1_aux);
-			int v2 = pegarPeso(g, col2_aux, lin2_aux);
+			int v1 = pegarPeso(g, col1_aux, lin1_aux - '0' + 8);
+			int v2 = pegarPeso(g, col2_aux, lin2_aux - '0' + 8);
 			int media = (v1 + v2) / 2;
 			inserePeso(g, c, l, media);
 		}
