@@ -64,8 +64,8 @@ int inserePeso(grafo* gr, int orig, int dest, int peso){
 		return 0;
 	if(dest-1 < 0 || dest-1 >= gr->nro_vertices)
 		return 0;
-
-	// printf("%f", gr->pesos[orig - 1][gr->grau[dest-8]]);
+//
+	printf("%d", peso);
 	gr->pesos[orig - 1][dest-1] = peso;
 	// printf("%d %d \n", gr->grau[dest - 1], gr->grau[orig - 1]);
 	gr->pesos[dest-1][orig - 1] = peso;
@@ -101,7 +101,7 @@ void imprimirGrafo(grafo *gr){
 void inserirTodasArestas(grafo *g){
     for(int i=0; i<8;i++){
         for (int x = 8; x < 28; x++){
-            insereAresta(g,i+1,x+1,0,-1);
+            insereAresta(g,i+1,x+1,0,0);
         }
     }
 
@@ -111,9 +111,8 @@ void adicionarPeso(grafo *g){
     inserePeso(g,1,9,0);
 }
 
-void gravar(grafo *g, char lin, char col, char valor[]){
-	int l, c;
-	l = lin - '0' + 8;
+int valorNoGrafo(char col){
+	int c;
 	switch (col){
 	case 'A':
 		c = 1;
@@ -140,11 +139,17 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		c = 8;
 		break;
 	}
+	return c;
+}
 
+void gravar(grafo *g, char lin, char col, char valor[]){
+	int l, c;
+	l = lin - '0' + 8;
+	c = valorNoGrafo(col);
 
 	if(valor[0] != '=' && valor[0] != '@'){
-		valor++;
 		int v = atoi(valor);
+		printf("--%s\n", valor);
 		inserePeso(g,c,l,v);
 	}else if(valor[0] == '='){
 		char lin_aux = valor[1];
@@ -171,7 +176,10 @@ void gravar(grafo *g, char lin, char col, char valor[]){
 		char col2_aux = valor[x];
 
 		if(strcmp(palavra, "soma")  == 0){
-			int v1 = pegarPeso(g, col1_aux, lin1_aux);
+			printf("%d %d\n", col1_aux, lin1_aux);
+
+			int v1 = pegarPeso(g, valorNoGrafo(col1_aux), atoi(lin1_aux));
+			return;
 			int v2 = pegarPeso(g, col2_aux, lin2_aux);
 			inserePeso(g, c, l, v1+v2);
 		}else if(strcmp(palavra, "max")  == 0){
@@ -202,21 +210,22 @@ int main(){
     // imprimirGrafo(g);
 
 
-		printf("Para parar o programa digite 00 sair\n");
-		char col = 'a', lin = 'a', valor[50];
-		while(col != '0' && lin != '0'){
-			printf("Digite o valor\n");
-			scanf(" %c%c %s", &col, &lin, valor);
-			if(lin != '0' && col != '0'){
-				gravar(g, lin, col, valor);
-			}
-		};
+	printf("Exemplo de inserção A1 3\n");
+	printf("Para parar o programa digite 00 0 sair\n");
+	char col = 'a', lin = 'a', valor[50];
+	while(col != '0' && lin != '0'){
+		printf("Digite o valor\n");
+		scanf(" %c%c %s", &col, &lin, valor);
+		if(lin != '0' && col != '0'){
+			gravar(g, lin, col, valor);
+		}
+	};
 		
+	imprimirPlanilha(g); 
 	// inserePeso(g, 1, 9, 1);
 	// inserePeso(g, 1, 13, 0);
 	// inserePeso(g, 2, 12, 0);
-	imprimirPlanilha(g); 
-	imprimirGrafo(g);
+	// imprimirGrafo(g);
 	// printf("%f",pegarPeso(g,1,1));
 	// imprimirGrafo(g); 
     return 0;
