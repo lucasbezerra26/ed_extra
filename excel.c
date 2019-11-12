@@ -8,7 +8,7 @@ struct Grafo{
 	int nro_vertices;
 	int grau_max; //numero maximo de ligações
 	int** aresta; //as conexões 
-	float** pesos;
+	int** pesos;
 	int* grau; //quantas aresta o vertice ja possue
     char *operacao;
 };
@@ -26,10 +26,10 @@ grafo *cria_grafo(int nro_vertices, int grau_max, int eh_ponderado){
 		gr->aresta[i] = (int*) malloc(grau_max * sizeof(int)); //colocando para apontar cada posição da lista para outra lista  
 		
 		if (gr->eh_ponderado){
-			gr->pesos = (float**) malloc(nro_vertices * sizeof(float*));
+			gr->pesos = (int**) malloc(nro_vertices * sizeof(int*));
 			for (int j = 0; j < nro_vertices; j++){
 				// printf("peso\n");
-				gr->pesos[j] = (float*) malloc(grau_max  *sizeof(float)); //fazendo a mesma coisa com os pesos
+				gr->pesos[j] = (int*) malloc(grau_max  *sizeof(int)); //fazendo a mesma coisa com os pesos
 			}
 		}
 	}
@@ -37,7 +37,7 @@ grafo *cria_grafo(int nro_vertices, int grau_max, int eh_ponderado){
 	return gr; 
 }
 
-int insereAresta(grafo* gr, int orig, int dest, int eh_digrafo, float peso){
+int insereAresta(grafo* gr, int orig, int dest, int eh_digrafo, int peso){
 	//inicio (verificando se tudo existe)
 	
 	if (gr == NULL)
@@ -74,6 +74,7 @@ int inserePeso(grafo* gr, int orig, int dest, int peso){
 	// printf("%d %d \n", gr->grau[dest - 1], gr->grau[orig - 1]);
 	gr->pesos[dest-1][orig - 1] = peso;
 
+
 	return 1;
 }
 
@@ -86,7 +87,7 @@ void imprimirPlanilha(grafo *gr){
 	for( int i=8; i< 28; i++){
         printf("|%dº ", i-7);
         for( int x=0; x<8; x++){
-            printf("| %.2f ", gr->pesos[i][x]);
+            printf("| %d ", gr->pesos[i][x]);
 		}
 
         printf("|\n");
@@ -96,7 +97,7 @@ void imprimirPlanilha(grafo *gr){
 void imprimirGrafo(grafo *gr){
 	for( int x=0; x<gr->nro_vertices; x++){
 		for( int i=0; i< gr->grau[x]; i++)
-			printf("%d tem ligacao com %d e peso %f\n", x + 1, gr->aresta[x][i] + 1, gr->pesos[x][i]);
+			printf("%d tem ligacao com %d e peso %d\n", x + 1, gr->aresta[x][i] + 1, gr->pesos[x][i]);
 	}
 }
 
